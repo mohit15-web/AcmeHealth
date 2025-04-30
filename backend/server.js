@@ -8,14 +8,19 @@ import weightRoutes from './routes/weightRoute.js'
 dotenv.config();
 const app = express();
 
+
 const corsOptions = {
-  origin: ['https://acme-health.vercel.app'], // or "*" for development
-  methods: ['GET', 'POST', 'PUT', 'DELETE'],
+  origin: ['https://acme-health.vercel.app'],
+  methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
   allowedHeaders: ['Content-Type', 'Authorization'],
   credentials: true,
 };
 
+// CORS middleware
 app.use(cors(corsOptions));
+
+// Handle preflight requests explicitly
+app.options('*', cors(corsOptions));
 
 app.use(express.json());
 
