@@ -8,16 +8,19 @@ import weightRoutes from './routes/weightRoute.js'
 dotenv.config();
 const app = express();
 
-
-const corsOptions = {
-  origin: ['http://localhost:5173/api','https://acme-health.vercel.app/api'],
-  methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
-  allowedHeaders: ['Content-Type', 'Authorization'],
-  credentials: true,
+const corsOptionsDelegate = (req, callback) => {
+  const allowedOrigins = ['http://localhost:5173', 'https://acme-health.vercel.app'];
+  const corsOptions = {
+    origin: allowedOrigins.includes(req.header('Origin')),
+    credentials: true,
+    methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
+    allowedHeaders: ['Content-Type', 'Authorization']
+  };
+  callback(null, corsOptions);
 };
 
-// CORS middleware
-app.use(cors(corsOptions));
+app.use(cors(corsOptionsDelegate)); 
+
 
 app.use(express.json());
 

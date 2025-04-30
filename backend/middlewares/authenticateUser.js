@@ -2,7 +2,6 @@ import jwt from 'jsonwebtoken';
 
 export const authenticateUser = (req, res, next) => {
   const authHeader = req.headers.authorization;
-    console.log("authHeader", authHeader);
     
   // Check if the token is present
   if (!authHeader || !authHeader.startsWith('Bearer ')) {
