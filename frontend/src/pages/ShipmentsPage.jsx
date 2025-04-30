@@ -5,7 +5,15 @@ import Layout from '../components/layout/Layout';
 
 const shipments = [
   {
-    id: "SHP001",
+    id: "SHP002",
+    date: "2025-05-15",
+    status: "Processing",
+    medication: "Semaglutide",
+    dosage: "0.5mg",
+    tracking: "Delivered",
+  },
+  {
+    id: "SHP110",
     date: "2025-04-15",
     status: "Delivered",
     medication: "Semaglutide",
@@ -19,6 +27,14 @@ const shipments = [
     medication: "Semaglutide",
     dosage: "0.5mg",
     tracking: "Pending",
+  },
+  {
+    id: "SHP100",
+    date: "2025-05-15",
+    status: "Processing",
+    medication: "Semaglutide",
+    dosage: "0.5mg",
+    tracking: "Delivered",
   },
 ];
 
