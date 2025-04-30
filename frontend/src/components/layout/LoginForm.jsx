@@ -29,8 +29,6 @@ const LoginForm = () => {
       } else {
         success = await login(email, password);  // Regular login
       }
-
-      console.log("login response", success)
       if (success) {
         navigate('/dashboard');
       } else {

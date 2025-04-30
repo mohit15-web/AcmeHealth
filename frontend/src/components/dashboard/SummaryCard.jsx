@@ -1,8 +1,6 @@
 import { Link } from "react-router-dom";
 
 const SummaryCard = ({ title, value, icon, iconBg, link, linkText }) => {
-  console.log(value);  // Log the value to ensure it's a valid string or number
-
   return (
     <div className="bg-white shadow rounded-lg p-5 flex flex-col justify-between">
       <div className="flex items-center space-x-4">

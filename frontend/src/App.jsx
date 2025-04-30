@@ -12,7 +12,6 @@ import SettingsPage from './pages/SettingPage';
 // import ShipmentsPage from './pages/ShipmentsPage';
 
 function App() {
-  console.log(" app is rendering")
   return (
     <AuthProvider>
       <Router>

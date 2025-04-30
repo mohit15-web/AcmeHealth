@@ -62,8 +62,8 @@ const UserProfilePage = () => {
                   <ul>
                     {navItems.map((item) => (
                       <li key={item.name} onClick={() => navigate(item.path)}>
-                        <a 
-                          className={`flex items-center px-6 py-3 text-sm font-medium ${
+                        <span 
+                          className={`flex items-center px-6 py-3 text-sm font-medium cursor-pointer ${
                             item.active 
                               ? 'text-blue-600 bg-blue-50' 
                               : 'text-gray-700 hover:bg-gray-50'
@@ -71,7 +71,7 @@ const UserProfilePage = () => {
                         >
                           <item.icon className="h-5 w-5 mr-3" />
                           {item.name}
-                        </a>
+                        </span>
                       </li>
                     ))}
                   </ul>

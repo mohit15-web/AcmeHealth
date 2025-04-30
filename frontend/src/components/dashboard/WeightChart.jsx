@@ -10,7 +10,6 @@ import {
 } from 'recharts';
 
 const WeightChart = ({ data }) => {
-  console.log("data",data);
   
   return (
     <div className="bg-white p-5 rounded-lg shadow w-full h-80">

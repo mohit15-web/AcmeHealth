@@ -3,7 +3,6 @@ import jwt from "jsonwebtoken";
 import User from "../models/userSchema.js";
 
 export const signup = async (req, res) => {
-  console.log(process.env.JWT_SECRET);
   const { email, password, patientName } = req.body;
   if (!email || !password || !patientName) {
     return res.status(400).json({ message: "All fields are required" });
@@ -26,19 +25,16 @@ export const signup = async (req, res) => {
         expiresIn: "7d",
       }
     );
-    res
-      .status(201)
-      .json({
-        token,
-        user: { email: newUser.email, patientName: newUser.patientName },
-      });
+    res.status(201).json({
+      token,
+      user: { email: newUser.email, patientName: newUser.patientName },
+    });
   } catch (err) {
     res.status(500).json({ message: "Signup failed", error: err.message });
   }
 };
 
 export const login = async (req, res) => {
-  console.log(req.body);
   const { email, password } = req.body;
   try {
     const user = await User.findOne({ email });
@@ -50,7 +46,12 @@ export const login = async (req, res) => {
     const token = jwt.sign({ id: user._id }, process.env.JWT_SECRET, {
       expiresIn: "7d",
     });
-    res.status(200).json({ token, user: { email: user.email, patientName: user.patientName } });
+    res
+      .status(200)
+      .json({
+        token,
+        user: { email: user.email, patientName: user.patientName },
+      });
   } catch (err) {
     res.status(500).json({ message: "Login failed", error: err.message });
   }
