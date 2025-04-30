@@ -10,7 +10,7 @@ const PrivateRoute = ({ children }) => {
   }
 
   // If user is not authenticated, redirect to login page
-  return user ? children : <Navigate to="/login" />;
+  return user ? children : <Navigate to="/" />;
 };
 
 export default PrivateRoute;

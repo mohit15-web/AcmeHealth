@@ -2,10 +2,12 @@ import React, { useContext, useState } from 'react';
 import { AuthContext } from '../../context/AuthContext';
 import { BellIcon, MenuIcon, UserIcon, XIcon } from 'lucide-react';
 import { extractUsername } from '../../utils/utils';
+import { useNavigate } from 'react-router-dom';
 
 const Navbar = ({ title }) => {
   const { user } = useContext(AuthContext);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const navigate = useNavigate()
   console.log("user navbar", user)
 
   return (
@@ -30,12 +32,11 @@ const Navbar = ({ title }) => {
         <button className="text-gray-500 hover:text-blue-600">
           <BellIcon className="w-5 h-5" />
         </button>
-        {user && (
-          <div className="w-8 h-8 flex items-center justify-center bg-blue-100 text-blue-700 rounded-full font-semibold">
-            {/* {extractUsername(user.email)} */}
+
+          <div className="w-8 h-8 flex items-center justify-center bg-blue-100 text-blue-700 rounded-full font-semibold"  onClick={() => navigate('/profile')}>
             <UserIcon/>
           </div>
-        )}
+   
       </div>
     </nav>
   );

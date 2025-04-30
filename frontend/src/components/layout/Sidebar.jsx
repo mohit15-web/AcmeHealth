@@ -1,22 +1,16 @@
-import React, { useState, useContext } from 'react';
+import React, { useContext } from 'react';
 import { AuthContext } from '../../context/AuthContext';
 import { NavLink } from 'react-router-dom';
 import {
   HomeIcon, ChartBarIcon, PackageIcon,
   CalendarIcon, CogIcon, LogOutIcon, ChevronLeft, ChevronRight
 } from 'lucide-react';
-import { extractUsername } from '../../utils/utils';
+import { navItems } from '../../utils/utils';
 
 const Sidebar = ({ isCollapsed, toggleCollapse }) => {
   const { user, logout } = useContext(AuthContext);
 
-  const navItems = [
-    { name: 'Dashboard', path: '/dashboard', icon: HomeIcon },
-    { name: 'Progress', path: '/progress', icon: ChartBarIcon },
-    { name: 'Shipments', path: '/shipments', icon: PackageIcon },
-    { name: 'Appointments', path: '/appointments', icon: CalendarIcon },
-    { name: 'Settings', path: '/settings', icon: CogIcon },
-  ];
+ 
 
   return (
     <div className={`fixed top-0 left-0 h-screen ${isCollapsed ? "w-20" : "w-64"} bg-white shadow-md flex flex-col transition-all duration-300 z-50`}>
@@ -29,7 +23,7 @@ const Sidebar = ({ isCollapsed, toggleCollapse }) => {
 
       {user && !isCollapsed && (
         <div className="px-4 mb-6">
-          <div className="text-sm text-gray-500">Welcome {extractUsername(user.email)} </div>
+          <div className="text-sm text-gray-500">Welcome {user.patientName} </div>
         </div>
       )}
 
@@ -56,7 +50,7 @@ const Sidebar = ({ isCollapsed, toggleCollapse }) => {
           className="flex items-center space-x-2 text-gray-600 hover:text-red-600 cursor-pointer"
         >
           <LogOutIcon className="w-5 h-5 "  />
-          {!isCollapsed && <span>Logout</span>}
+          {!isCollapsed && <span onClick={() => logout()}>Logout</span>}
         </button>
       </div>
     </div>
