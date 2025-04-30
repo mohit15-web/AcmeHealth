@@ -7,7 +7,12 @@ import weightRoutes from './routes/weightRoute.js'
 
 dotenv.config();
 const app = express();
-app.use(cors());
+app.use(cors({
+  origin: 'https://acme-health.vercel.app',
+  credentials: true,
+  allowedHeaders: ['Content-Type', 'Authorization']
+}));
+
 app.use(express.json());
 
 mongoose.connect(process.env.LOCAL_MONGO_URI)
