@@ -10,7 +10,7 @@ const app = express();
 
 const allowedOrigins = [
   'http://localhost:5173',
-  'https://acmehealth.onrender.com'
+  'https://acme-health.vercel.app/'
 ];
 
 // CORS options
