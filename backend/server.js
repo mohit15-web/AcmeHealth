@@ -8,19 +8,17 @@ import weightRoutes from './routes/weightRoute.js'
 dotenv.config();
 const app = express();
 
-const corsOptionsDelegate = (req, callback) => {
-  const allowedOrigins = ['http://localhost:5173', 'https://acme-health.vercel.app'];
-  const corsOptions = {
-    origin: allowedOrigins.includes(req.header('Origin')),
-    credentials: true,
-    methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
-    allowedHeaders: ['Content-Type', 'Authorization']
-  };
-  callback(null, corsOptions);
-};
-
-app.use(cors(corsOptionsDelegate)); 
-
+// Manual CORS headers (for stubborn preflight issues)
+app.use((req, res, next) => {
+  res.header("Access-Control-Allow-Origin", "https://acme-health.vercel.app");
+  res.header("Access-Control-Allow-Credentials", "true");
+  res.header("Access-Control-Allow-Methods", "GET,POST,PUT,DELETE,OPTIONS");
+  res.header("Access-Control-Allow-Headers", "Content-Type, Authorization");
+  if (req.method === 'OPTIONS') {
+    return res.sendStatus(200);
+  }
+  next();
+});
 
 app.use(express.json());
 
