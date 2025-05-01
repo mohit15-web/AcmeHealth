@@ -11,9 +11,16 @@ import {
   ResponsiveContainer,
 } from "recharts";
 
-const ProgressPage = () => {
-  const [weightEntries, setWeightEntries] = useState([]);
+// Dummy data
+const dummyEntries = [
+  { _id: "d1", date: "2024-04-01", weight: 160 },
+  { _id: "d2", date: "2024-04-08", weight: 158 },
+  { _id: "d3", date: "2024-04-15", weight: 157 },
+  { _id: "d4", date: "2024-04-22", weight: 156 },
+];
 
+const ProgressPage = () => {
+  const [weightEntries, setWeightEntries] = useState(dummyEntries);
   const [newEntry, setNewEntry] = useState({ date: "", weight: "" });
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState(null);
@@ -23,11 +30,11 @@ const ProgressPage = () => {
       const response = await axios.get(
         `${import.meta.env.VITE_BASE_URL}/weight/history`
       );
-
-      setWeightEntries(response.data.entries);
-      setIsLoading(false);
+      // Combine dummy with real entries
+      setWeightEntries((prev) => [...prev, ...response.data.entries]);
     } catch (err) {
       setError("Failed to load data");
+    } finally {
       setIsLoading(false);
     }
   };
@@ -80,6 +87,13 @@ const ProgressPage = () => {
         <h2 className="text-2xl font-semibold text-gray-800 mb-6">
           Weight Progress
         </h2>
+
+        {/* Loading and Error States */}
+        {isLoading ? (
+          <p className="text-gray-600 mb-4">Loading weight entries...</p>
+        ) : error ? (
+          <p className="text-red-500 mb-4">{error}</p>
+        ) : null}
 
         {/* Add New Entry */}
         <div className="mb-6 flex gap-4 items-end">
@@ -137,7 +151,7 @@ const ProgressPage = () => {
         <div className="bg-white p-4 rounded shadow">
           <h3 className="text-lg font-medium mb-3">Weight Entries</h3>
           <ul className="divide-y">
-            {weightEntries?.map((entry) => (
+            {weightEntries.map((entry) => (
               <li
                 key={entry._id}
                 className="py-2 flex justify-between items-center"
