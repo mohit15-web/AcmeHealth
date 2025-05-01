@@ -1,5 +1,6 @@
 import React, { createContext, useState, useEffect } from "react";
 import axios from "axios";
+import { toast } from "react-toastify";
 
 export const AuthContext = createContext();
 
@@ -38,10 +39,12 @@ export const AuthProvider = ({ children }) => {
         "Authorization"
       ] = `Bearer ${res.data.token}`;
       setUser(res.data.user);
+      toast.success("Login successful");
       localStorage.setItem("userInfo", JSON.stringify(res.data.user));
 
       return true;
     } catch (err) {
+      toast.error("Login failed");
       console.error("Login error:", err.response?.data || err.message);
       return false;
     }
@@ -58,10 +61,12 @@ export const AuthProvider = ({ children }) => {
         "Authorization"
       ] = `Bearer ${res.data.token}`;
       setUser(res.data.user);
+      toast.success("Signup successful");
       localStorage.setItem("userInfo", JSON.stringify(res.data.user));
 
       return true;
     } catch (err) {
+      toast.error("Signup failed");
       console.error("Signup error:", err.response?.data || err.message);
       return false;
     }
@@ -69,6 +74,7 @@ export const AuthProvider = ({ children }) => {
 
   const logout = () => {
     localStorage.removeItem("token");
+    toast.success("Logout successful");
     delete axios.defaults.headers.common["Authorization"];
     setUser(null);
   };

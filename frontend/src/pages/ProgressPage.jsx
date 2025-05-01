@@ -10,6 +10,7 @@ import {
   Tooltip,
   ResponsiveContainer,
 } from "recharts";
+import { toast } from "react-toastify";
 
 // Dummy data
 const dummyEntries = [
@@ -24,6 +25,7 @@ const ProgressPage = () => {
   const [newEntry, setNewEntry] = useState({ date: "", weight: "" });
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState(null);
+  const [isDummy, setIsDummy] = useState(true);
 
   const fetchWeightEntries = async () => {
     try {
@@ -31,8 +33,12 @@ const ProgressPage = () => {
         `${import.meta.env.VITE_BASE_URL}/weight/history`
       );
       // Combine dummy with real entries
-      setWeightEntries((prev) => [...prev, ...response.data.entries]);
+      setWeightEntries((prev) =>
+        isDummy ? [...prev, ...response.data.entries] : response.data.entries
+      );
+      toast.success("Weight Data loaded successfully");
     } catch (err) {
+      toast.error("Failed to load data");
       setError("Failed to load data");
     } finally {
       setIsLoading(false);
@@ -50,9 +56,15 @@ const ProgressPage = () => {
         `${import.meta.env.VITE_BASE_URL}/weight/add`,
         newEntry
       );
-      setWeightEntries([...weightEntries, response.data.entry]);
+      setWeightEntries((prev) => {
+        const filtered = isDummy ? [] : prev;
+        return [...filtered, response.data.entry];
+      });
+      setIsDummy(false);
       setNewEntry({ date: "", weight: "" });
+      toast.success("Weight Entry added successfully");
     } catch (err) {
+      setError("Failed to add entry");
       console.error("Add failed:", err);
     }
   };
@@ -63,7 +75,10 @@ const ProgressPage = () => {
         `${import.meta.env.VITE_BASE_URL}/weight/delete/${id}`
       );
       setWeightEntries(weightEntries.filter((entry) => entry._id !== id));
+      toast.success("Weight Entry deleted successfully");
     } catch (err) {
+      toast.error("Failed to delete entry");
+      setError("Failed to delete entry");
       console.error("Delete failed:", err);
     }
   };

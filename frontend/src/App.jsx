@@ -9,12 +9,14 @@ import ShipmentsPage from './pages/ShipmentsPage';
 import ErrorPage from './pages/ErrorPage';
 import UserProfilePage from './pages/UserProfilePage';
 import SettingsPage from './pages/SettingPage';
-// import ShipmentsPage from './pages/ShipmentsPage';
+import { ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 function App() {
   return (
     <AuthProvider>
       <Router>
+          <ToastContainer position="top-right" autoClose={3000} />
         <Routes>
           {/* Public Route */}
           <Route path="/" element={<LoginPage />} />
