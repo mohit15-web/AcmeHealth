@@ -1,5 +1,4 @@
-import React, { useState, useEffect } from "react";
-import axios from "axios";
+import React from "react";
 import Layout from "../components/layout/Layout";
 import SummaryCard from "../components/dashboard/SummaryCard";
 import WeightChart from "../components/dashboard/WeightChart";
@@ -12,45 +11,6 @@ import {
 } from "lucide-react";
 
 const DashboardPage = () => {
-  const [isLoading, setIsLoading] = useState(true);
-  const [dashboardData, setDashboardData] = useState(null);
-  const [error, setError] = useState(null);
-
-  useEffect(() => {
-    const fetchDashboardData = async () => {
-      try {
-        const response = await axios.get("/api/dashboard");
-        setDashboardData(response.data);
-        setIsLoading(false);
-      } catch (err) {
-        console.error("Error fetching dashboard data:", err);
-        setError("Failed to load dashboard data");
-        setIsLoading(false);
-      }
-    };
-
-    // fetchDashboardData();
-  }, []);
-
-  if (isLoading) {
-    return (
-      <Layout>
-        <div className="flex justify-center items-center h-screen">
-          <p>Loading...</p>
-        </div>
-      </Layout>
-    );
-  }
-
-  if (error) {
-    return (
-      <Layout>
-        <div className="flex justify-center items-center h-screen">
-          <p>{error}</p>
-        </div>
-      </Layout>
-    );
-  }
 
   const data = {
     currentWeight: 181,
