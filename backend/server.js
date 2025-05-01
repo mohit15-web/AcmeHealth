@@ -13,17 +13,11 @@ const allowedOrigins = [
   'https://acme-health.vercel.app/'
 ];
 
-// CORS options
 const corsOptions = {
-  origin: (origin, callback) => {
-    if (allowedOrigins.indexOf(origin) !== -1 || !origin) {
-      callback(null, true);
-    } else {
-      callback(new Error('Not allowed by CORS'));
-    }
-  },
-  credentials: true
+  origin: '*', // For testing purposes, allow all origins
+  credentials: true,
 };
+
 app.use(cors(corsOptions));
 app.use(express.json());
 
