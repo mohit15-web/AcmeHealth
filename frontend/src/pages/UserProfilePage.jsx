@@ -1,4 +1,4 @@
-import { Bell, LogOut, LogOutIcon, UserIcon } from "lucide-react";
+import { Bell, LogOutIcon, UserIcon } from "lucide-react";
 import { useContext, useState } from "react";
 import { navItems } from "../utils/utils";
 import { useNavigate } from "react-router-dom";

@@ -6,7 +6,6 @@ export const AuthContext = createContext();
 
 export const AuthProvider = ({ children }) => {
   const [user, setUser] = useState(null);
-  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     const checkLoggedIn = async () => {
@@ -22,7 +21,6 @@ export const AuthProvider = ({ children }) => {
         localStorage.removeItem("token");
         delete axios.defaults.headers.common["Authorization"];
       }
-      setLoading(false);
     };
 
     checkLoggedIn();
@@ -80,7 +78,7 @@ export const AuthProvider = ({ children }) => {
   };
 
   return (
-    <AuthContext.Provider value={{ user, login, signup, logout, loading }}>
+    <AuthContext.Provider value={{ user, login, signup, logout }}>
       {children}
     </AuthContext.Provider>
   );

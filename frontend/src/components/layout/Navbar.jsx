@@ -1,10 +1,8 @@
 import React, { useContext, useState } from "react";
-import { AuthContext } from "../../context/AuthContext";
 import { BellIcon, MenuIcon, UserIcon, XIcon } from "lucide-react";
 import { useNavigate } from "react-router-dom";
 
 const Navbar = ({ title }) => {
-  const { user } = useContext(AuthContext);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const navigate = useNavigate();
 
@@ -29,7 +27,6 @@ const Navbar = ({ title }) => {
         <h1 className="text-xl font-semibold text-gray-700">{title}</h1>
       </div>
 
-      {/* Right section: Notification + User Avatar */}
       <div className="flex items-center space-x-4 cursor-pointer">
         <button className="text-gray-500 hover:text-blue-600">
           <BellIcon className="w-5 h-5" />
